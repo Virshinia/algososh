@@ -1,0 +1,13 @@
+.result {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 120px auto 0;
+}
+
+.form {
+    display: flex;
+    gap:12px;
+    max-width: 522px;
+    margin: 0 auto;
+}
