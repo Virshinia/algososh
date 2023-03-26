@@ -6,14 +6,30 @@ import styles from "./sorting-page.module.css";
 import {Column} from "../ui/column/column";
 import {Direction} from "../../types/direction";
 import {swap} from "../../constants/utils";
+import {SHORT_DELAY_IN_MS} from "../../constants/delays";
+import {ElementStates} from "../../types/element-states";
+
+interface IStatus {
+  first?: number;
+  second?: number;
+  loader: boolean;
+}
+
+
 
 export const SortingPage: React.FC = () => {
-  const [array, setValue] = useState<number[]>([20,5,10]);
+  const initialStatus = {loader: false}
+  const [array, setValue] = useState<number[]>([]);
+  const [status, setStatus] = useState<IStatus>(initialStatus);
   const [sortingSettings, setSettings] = useState({type: 'selection', direction: Direction.Ascending})
-  const render = (arr: number[]) => {
-    return arr.map((value) =>
+
+  const render = (arr: number[], first?: number, second?: number) => {
+    return arr.map((num, i) =>
       <Column
-          index={value}
+          state={ second ?
+              i === first || i === second ? ElementStates.Changing : i > second ? ElementStates.Modified : ElementStates.Default
+              : ElementStates.Default}
+          index={num}
       />
     )
   }
@@ -28,31 +44,43 @@ export const SortingPage: React.FC = () => {
       arr.push(randomNumber)
       qty--
     }
-    setValue(arr)
+    setValue(arr);
+    setStatus(initialStatus)
   }
 
   useEffect(()=> {
     randomArr()
   }, [])
-  const bubbleSort = (arr: number[]) => {
-    for (let i = 0; i < arr.length; i++) {
-      for ( let j = 0; j < arr.length - i - 1; j++) {
-          if (arr[j] < arr[j+1]) {
-          swap(arr, j, j+1);
-          console.log(arr)
-        }
-      }
+
+  const handlerSorting = (direction: string) => {
+    if (sortingSettings.type === 'bubble') {
+      bubbleSort(array, direction);
     }
 
+    selectionSort(array, direction)
   }
 
-  const selectionSort = (arr: number[]) => {
-    const { length } = arr;
-    for (let i = 0; i < length; i++) {
-      for ( let j = 0; j < length - i - 1; j++) {
+  const bubbleSort = (arr: number[], direction: string) => {
+    for (let i = 0; i < arr.length; i++) {
+      for ( let j = 0; j < arr.length - i - 1; j++) {
+        setTimeout(() => {
+          setStatus({first: j, second: j+1, loader: j !== 0});
+          if (direction === Direction.Ascending ? arr[j] > arr[j+1] : arr[j] < arr[j+1]) {
+            swap(arr, j, j+1);
+            setValue([...arr])
+          }
+
+          }, SHORT_DELAY_IN_MS * i )
+      }
+    }
+  }
+
+  const selectionSort = (arr: number[], direction: string) => {
+    for (let i = 0; i < arr.length; i++) {
+      for ( let j = 0; j < arr.length - i - 1; j++) {
         if (arr[j] < arr[j+1]) {
           swap(arr, j, j+1);
-          console.log(arr)
+          setValue(arr)
         }
       }
     }
@@ -61,18 +89,31 @@ export const SortingPage: React.FC = () => {
   return (
     <SolutionLayout title="Сортировка массива">
       <div className={styles.buttons}>
-        <RadioInput label='Выбор' extraClass='mr-20'
+        <RadioInput label='Выбор'
+                    extraClass='mr-20'
                     onClick={()=>{setSettings({...sortingSettings, type: 'selection'})}}/>
-        <RadioInput label='Пузырёк' extraClass='mr-20'
-                      onClick={()=>{setSettings({...sortingSettings, type: 'bubble'})}}/>
-        <Button sorting={Direction.Ascending} text='По возрастанию' extraClass='ml-8 mr-6'
-                onClick={()=>{setSettings({...sortingSettings, direction: Direction.Ascending})}}/>
-        <Button sorting={Direction.Descending} text='По убыванию' extraClass='mr-20'
-                onClick={()=>{setSettings({...sortingSettings, direction: Direction.Descending})}}/>
-        <Button text='Новый массив' extraClass='ml-20'
-                onClick={()=> randomArr()}/>
+        <RadioInput label='Пузырёк'
+                    extraClass='mr-20'
+                    onClick={()=>{setSettings({...sortingSettings, type: 'bubble'})}}/>
+        <Button sorting={Direction.Ascending}
+                text='По возрастанию'
+                extraClass='ml-8 mr-6'
+                disabled={status.loader}
+                onClick={()=> handlerSorting(Direction.Ascending)}
+        />
+        <Button sorting={Direction.Descending}
+                text='По убыванию'
+                extraClass='mr-20'
+                disabled={status.loader}
+                onClick={()=> handlerSorting(Direction.Descending)}
+        />
+        <Button text='Новый массив'
+                extraClass='ml-20'
+                disabled={status.loader}
+                onClick={()=> randomArr()}
+        />
       </div>
-      {array && <div className={styles.result}>{render(array)}</div>}
+      {array && <div className={styles.result}>{render(array, status.first, status.second)}</div>}
     </SolutionLayout>
   );
 };
