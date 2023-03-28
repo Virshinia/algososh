@@ -117,28 +117,38 @@ export const SortingPage: React.FC = () => {
   return (
     <SolutionLayout title="Сортировка массива">
       <div className={styles.buttons}>
-        <RadioInput label='Выбор'
-                    extraClass='mr-20'
-                    onClick={()=>{setSettings({...sortingSettings, type: 'selection'})}}/>
-        <RadioInput label='Пузырёк'
-                    extraClass='mr-20'
-                    onClick={()=>{setSettings({...sortingSettings, type: 'bubble'})}}/>
-        <Button sorting={Direction.Ascending}
-                text='По возрастанию'
-                extraClass='ml-8 mr-6'
-                disabled={status.loader}
-                onClick={()=> handlerSorting(Direction.Ascending)}
+        <RadioInput
+            name='sortingType'
+            label='Выбор'
+            extraClass='mr-20'
+            onClick={()=>{setSettings({...sortingSettings, type: 'selection'})}}
+            checked={sortingSettings.type === 'selection'}
         />
-        <Button sorting={Direction.Descending}
-                text='По убыванию'
-                extraClass='mr-20'
-                disabled={status.loader}
-                onClick={()=> handlerSorting(Direction.Descending)}
+        <RadioInput
+            name='sortingType'
+            label='Пузырёк'
+            extraClass='mr-20'
+            onClick={()=>{setSettings({...sortingSettings, type: 'bubble'})}}
         />
-        <Button text='Новый массив'
-                extraClass='ml-20'
-                disabled={status.loader}
-                onClick={()=> randomArr()}
+        <Button
+            sorting={Direction.Ascending}
+            text='По возрастанию'
+            extraClass='ml-8 mr-6'
+            disabled={status.loader}
+            onClick={()=> handlerSorting(Direction.Ascending)}
+        />
+        <Button
+            sorting={Direction.Descending}
+            text='По убыванию'
+            extraClass='mr-20'
+            disabled={status.loader}
+            onClick={()=> handlerSorting(Direction.Descending)}
+        />
+        <Button
+            text='Новый массив'
+            extraClass='ml-20'
+            disabled={status.loader}
+            onClick={()=> randomArr()}
         />
       </div>
       {array && <div className={styles.result}>{render(array, status.first, status.second, status.sorted)}</div>}
