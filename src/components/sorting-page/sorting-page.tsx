@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {SolutionLayout} from "../ui/solution-layout/solution-layout";
 import {RadioInput} from "../ui/radio-input/radio-input";
 import {Button} from "../ui/button/button";
@@ -23,7 +23,7 @@ export const SortingPage: React.FC = () => {
   const initialStatus = {loader: false, isFullySorted: false}
   const [array, setValue] = useState<number[]>([]);
   const [status, setStatus] = useState<IStatus>(initialStatus);
-  const [sortingSettings, setSettings] = useState({type: 'selection'})
+  const [sortType, setSettings] = useState('selection')
 
   const render = (arr: number[], first?: number, second?: number, sorted?: number) => {
     return arr.map((num, i) =>
@@ -42,9 +42,9 @@ export const SortingPage: React.FC = () => {
 
     if (i === first || i === second) {
       return ElementStates.Changing
-    } else if (sortingSettings.type === 'bubble' && sorted && (i > sorted)) {
+    } else if (sortType === 'bubble' && sorted && (i > sorted)) {
       return ElementStates.Modified
-    } else if (sortingSettings.type === 'selection' && sorted && (i <= sorted)) {
+    } else if (sortType === 'selection' && sorted && (i <= sorted)) {
       return ElementStates.Modified
     } else {
       return ElementStates.Default
@@ -70,11 +70,15 @@ export const SortingPage: React.FC = () => {
   }, [])
 
   const handlerSorting = (direction: string) => {
-    if (sortingSettings.type === 'bubble') {
+    if (sortType === 'bubble') {
       bubbleSort(array, direction);
     } else {
       selectionSort(array, direction)
     }
+  }
+
+  const handlerRadioInputChange = (event: FormEvent<HTMLInputElement>) => {
+    setSettings(event.currentTarget.value)
   }
 
   const bubbleSort = (arr: number[], direction: string) => {
@@ -121,14 +125,17 @@ export const SortingPage: React.FC = () => {
             name='sortingType'
             label='Выбор'
             extraClass='mr-20'
-            onClick={()=>{setSettings({...sortingSettings, type: 'selection'})}}
-            checked={sortingSettings.type === 'selection'}
+            value='selection'
+            onChange={handlerRadioInputChange}
+            checked={sortType === 'selection'}
         />
         <RadioInput
             name='sortingType'
             label='Пузырёк'
             extraClass='mr-20'
-            onClick={()=>{setSettings({...sortingSettings, type: 'bubble'})}}
+            value='bubble'
+            onChange={handlerRadioInputChange}
+            checked={sortType === 'bubble'}
         />
         <Button
             sorting={Direction.Ascending}
