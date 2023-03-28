@@ -12,26 +12,43 @@ import {ElementStates} from "../../types/element-states";
 interface IStatus {
   first?: number;
   second?: number;
+  sorted?: number;
   loader: boolean;
+  isFullySorted: boolean;
 }
 
 
 
 export const SortingPage: React.FC = () => {
-  const initialStatus = {loader: false}
+  const initialStatus = {loader: false, isFullySorted: false}
   const [array, setValue] = useState<number[]>([]);
   const [status, setStatus] = useState<IStatus>(initialStatus);
-  const [sortingSettings, setSettings] = useState({type: 'selection', direction: Direction.Ascending})
+  const [sortingSettings, setSettings] = useState({type: 'selection'})
 
-  const render = (arr: number[], first?: number, second?: number) => {
+  const render = (arr: number[], first?: number, second?: number, sorted?: number) => {
     return arr.map((num, i) =>
       <Column
-          state={ second ?
-              i === first || i === second ? ElementStates.Changing : i > second ? ElementStates.Modified : ElementStates.Default
-              : ElementStates.Default}
+          key={i}
+          state={handlerColumnStateChange(i, first, second, sorted)}
           index={num}
       />
     )
+  }
+
+  const handlerColumnStateChange = (i: number, first?: number, second?: number, sorted?: number) => {
+    if (status.isFullySorted) {
+      return ElementStates.Modified
+    }
+
+    if (i === first || i === second) {
+      return ElementStates.Changing
+    } else if (sortingSettings.type === 'bubble' && sorted && (i > sorted)) {
+      return ElementStates.Modified
+    } else if (sortingSettings.type === 'selection' && sorted && (i <= sorted)) {
+      return ElementStates.Modified
+    } else {
+      return ElementStates.Default
+    }
   }
 
   const randomArr = () => {
@@ -55,33 +72,44 @@ export const SortingPage: React.FC = () => {
   const handlerSorting = (direction: string) => {
     if (sortingSettings.type === 'bubble') {
       bubbleSort(array, direction);
+    } else {
+      selectionSort(array, direction)
     }
-
-    selectionSort(array, direction)
   }
 
   const bubbleSort = (arr: number[], direction: string) => {
+    let count = 0
     for (let i = 0; i < arr.length; i++) {
       for ( let j = 0; j < arr.length - i - 1; j++) {
-        setTimeout(() => {
-          setStatus({first: j, second: j+1, loader: j !== 0});
+        count++
+        setTimeout((i, j, count) => {
+          console.log(count)
+          setStatus({first: j, second: j+1, sorted: arr.length - i - 1, loader: arr.length - i - 1 > 1, isFullySorted: arr.length - i - 1 === 1 });
           if (direction === Direction.Ascending ? arr[j] > arr[j+1] : arr[j] < arr[j+1]) {
             swap(arr, j, j+1);
             setValue([...arr])
           }
-
-          }, SHORT_DELAY_IN_MS * i )
+          }, SHORT_DELAY_IN_MS * count, i, j, count)
       }
     }
   }
 
   const selectionSort = (arr: number[], direction: string) => {
-    for (let i = 0; i < arr.length; i++) {
-      for ( let j = 0; j < arr.length - i - 1; j++) {
-        if (arr[j] < arr[j+1]) {
-          swap(arr, j, j+1);
-          setValue(arr)
-        }
+    let count = 0
+    for (let i = 0; i < arr.length - 1; i++) {
+      for ( let j = i + 1; j < arr.length; j++) {
+        count++
+        setTimeout((i, j, minInd) => {
+          setStatus({first: minInd, second: j, loader: minInd < arr.length - 2, sorted: minInd, isFullySorted: minInd === arr.length - 2});
+
+          if (direction === Direction.Ascending ? arr[j] < arr[minInd] : arr[j] > arr[minInd]) {
+            minInd = j
+            swap(arr, minInd, i);
+            setValue([...arr])
+          }
+
+        }, SHORT_DELAY_IN_MS * count, i, j, i, count)
+
       }
     }
   };
@@ -113,7 +141,7 @@ export const SortingPage: React.FC = () => {
                 onClick={()=> randomArr()}
         />
       </div>
-      {array && <div className={styles.result}>{render(array, status.first, status.second)}</div>}
+      {array && <div className={styles.result}>{render(array, status.first, status.second, status.sorted)}</div>}
     </SolutionLayout>
   );
 };
