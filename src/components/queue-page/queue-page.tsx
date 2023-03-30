@@ -65,7 +65,7 @@ export const QueuePage: React.FC = () => {
             key={index}
             index={index}
             letter={value ? value : ''}
-            state={(index === tail && status.loaderForEnqueue)|| (index === head && status.loaderForDequeue) ? ElementStates.Changing : ElementStates.Default}
+            state={(index === tail && status.loaderForEnqueue) || (index === head && status.loaderForDequeue) ? ElementStates.Changing : ElementStates.Default}
             head={ size > 0 && head === index ? 'head' : null}
             tail={ size > 0 && tail - 1 === index ? 'tail' : null}
         />)
@@ -86,7 +86,7 @@ export const QueuePage: React.FC = () => {
               text="Добавить"
               type="submit"
               isLoader={status.loaderForEnqueue}
-              disabled={status.tail === array.length || status.loaderForDequeue || status.loaderForEnqueue}
+              disabled={values.value === '' || status.tail === array.length || status.loaderForDequeue || status.loaderForEnqueue}
               extraClass='mr-6'
 
           />
@@ -102,7 +102,7 @@ export const QueuePage: React.FC = () => {
                 text="Очистить"
                 type="button"
                 onClick={clearQueue}
-                disabled={status.loaderForDequeue || status.loaderForEnqueue}
+                disabled={status.size === 0 || status.loaderForDequeue || status.loaderForEnqueue}
                 extraClass='ml-20'
             />
         </form>
