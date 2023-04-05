@@ -43,7 +43,7 @@ export const StringComponent: React.FC = () => {
                 if (arr[currentStart] !== arr[currentEnd]) {
                     swap(arr, currentStart, currentEnd);
                 }
-                setValue(arr)
+                setValue([...arr])
             }, DELAY_IN_MS * start, start, end)
             start++;
             end--;
@@ -59,12 +59,13 @@ export const StringComponent: React.FC = () => {
                 maxLength={11}
                 isLimitText={true}
                 name='string'
+                value={values.string}
             />
             <Button
                 text="Развернуть"
                 type="submit"
                 isLoader={status.loader}
-                disabled={status.loader}
+                disabled={values.string ==='' || status.loader}
             />
         </form>
         {array && <div className={styles.result}>{render(array, status.start, status.end)}</div>}
