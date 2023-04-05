@@ -1,0 +1,26 @@
+.result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 120px auto 0;
+    max-width: 944px;
+    column-gap: 25px;
+    row-gap: 48px;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    max-width: 952px;
+    margin: 12px auto 0;
+}
+
+.input {
+    min-width: 204px;
+    max-width: 204px;
+}
+
+.button {
+    width: 100%;
+}
