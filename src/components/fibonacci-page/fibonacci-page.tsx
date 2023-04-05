@@ -54,6 +54,7 @@ export const FibonacciPage: React.FC = () => {
             onChange={handleChange}
             placeholder='Введите число'
             max={19}
+            value={values.index}
             type='number'
             isLimitText={true}
             name='index'
