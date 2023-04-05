@@ -4,8 +4,8 @@ export function useForm<T>(inputValues: T) {
     const [values, setValues] = useState(inputValues);
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-        const {value, name} = event.target;
-        setValues({...values, [name]: value});
+        let value = isNaN(event.target.valueAsNumber) ? event.target.value : event.target.valueAsNumber;
+        setValues({...values, [event.target.name]: value});
     };
     return {values, handleChange, setValues};
 }
