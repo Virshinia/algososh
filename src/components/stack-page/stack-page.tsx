@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {SolutionLayout} from "../ui/solution-layout/solution-layout";
 import styles from "../queue-page/queue-page.module.css";
 import {Input} from "../ui/input/input";
@@ -7,30 +7,35 @@ import {Circle} from "../ui/circle/circle";
 import {ElementStates} from "../../types/element-states";
 import {useForm} from "../../constants/hooks/useForm";
 import {SHORT_DELAY_IN_MS} from "../../constants/delays";
+import {Stack} from "./class-stack";
 
 export const StackPage: React.FC = () => {
 
   const {values, handleChange} = useForm({value: ''})
   const [loader, setLoader] = useState({push: false, pop: false});
-  const [array, setStack] = useState<string[]>([])
+  const [array, setStack] = useState<Array<string | number>>([])
 
-  const push = (e: React.FormEvent) => {
+  const stack = useMemo(() => {
+    return new Stack<string | number >();
+  },[])
+
+  const addToStack = (e: React.FormEvent) => {
     e.preventDefault();
     setLoader({...loader, push: true});
-    array.push(values.value)
-    setStack([...array]);
+    stack.push(values.value);
+    setStack([...stack.getStack()]);
     setTimeout(()=>{
       setLoader({...loader, push: false});
     }, SHORT_DELAY_IN_MS)
 
   }
 
-  const pop = (e: React.FormEvent) => {
+  const removeFromStack = (e: React.FormEvent) => {
 
     e.preventDefault();
     setLoader({...loader, pop: true});
-    array.pop()
-    setStack([...array]);
+    stack.pop();
+    setStack([...stack.getStack()]);
     setTimeout(()=>{
       setLoader({...loader, push: false});
     }, SHORT_DELAY_IN_MS)
@@ -38,24 +43,24 @@ export const StackPage: React.FC = () => {
   }
 
   const clearStack = () => {
-    setStack([])
+    setStack(stack.clear())
   }
 
 
-  const render = (arr:string[]) => {
+  const render = (arr: Array<string | number>) => {
     const last = arr.length - 1
     return arr.map((value, index) =>
         <Circle
             key={index}
             index={index}
-            letter={value ? value : ''}
+            letter={value ? value.toString() : ''}
             head={ index === last ? 'top' : null}
             state={ index === last && (loader.push || loader.pop) ? ElementStates.Changing : ElementStates.Default}
         />)
   }
   return (
     <SolutionLayout title="Стек">
-      <form className={styles.form} onSubmit={push}>
+      <form className={styles.form} onSubmit={addToStack}>
         <Input
             onChange={handleChange}
             value={values.value}
@@ -75,7 +80,7 @@ export const StackPage: React.FC = () => {
         <Button
             text="Удалить"
             type="button"
-            onClick={pop}
+            onClick={removeFromStack}
             isLoader={loader.pop}
             disabled={array.length < 1 || loader.push || loader.pop}
             extraClass='mr-20'
