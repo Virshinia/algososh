@@ -270,7 +270,7 @@ export const ListPage: React.FC = () => {
 
   return (
     <SolutionLayout title="Связный список">
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={(evt)=>evt.preventDefault()}>
         <Input
             onChange={handleChange}
             value={values.value}
@@ -314,7 +314,7 @@ export const ListPage: React.FC = () => {
         />
       </form>
 
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={(evt)=> evt.preventDefault()}>
         <Input
             placeholder="Введите индекс"
             type='number'
