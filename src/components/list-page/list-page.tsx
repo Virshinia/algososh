@@ -230,7 +230,7 @@ export const ListPage: React.FC = () => {
     if (
         (!bottom && status.addTail && index === list.length-1 ) ||
         (!top && status.addHead && index === 0) ||
-        (status.addByIndex  && index === status.indexInProgress)
+        (!status.addByIndex && !status.removeByIndex && index === status.indexInProgress)
     ) {
       return ElementStates.Modified
 
@@ -241,20 +241,30 @@ export const ListPage: React.FC = () => {
     }
   }
 
+  const handleTopVisibility = (index: number, top: ReactElement | null) => {
+    if (top && status.indexInProgress === index) {
+      return top
+    } else {
+      if(index === 0) {
+        return "head"
+      } else {return ""}
+    }
+  }
+
+
 
   const render = (arr: ILinkedItem[]) => {
     return arr.map(({top, bottom, value, next}, index) =>
-        <>
+        <div className={styles.circle} key={index}>
           <Circle
-            key={index}
             index={index}
-            head={ top ? top : index === 0 ? "head" : ""}
+            head={handleTopVisibility(index, top)}
             tail={bottom ? bottom : index === list.length - 1 ? "tail" : ""}
             letter={value}
             state={handleCircleStateChange(index, bottom, top)}
           />
-          {next && <ArrowIcon/>}
-        </>
+          {next && <ArrowIcon />}
+        </div>
     )
   }
 

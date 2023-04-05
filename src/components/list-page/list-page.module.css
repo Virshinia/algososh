@@ -1,7 +1,6 @@
 .result {
     display: flex;
     justify-content: center;
-    align-items: center;
     margin: 120px auto 0;
     max-width: 944px;
     column-gap: 25px;
@@ -23,4 +22,10 @@
 
 .button {
     width: 100%;
+}
+
+.circle {
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
