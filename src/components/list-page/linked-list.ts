@@ -95,8 +95,8 @@ export class LinkedList<T> implements ILinkedList<T> {
     removeByIndex(index: number) {
         if (index > 0 && index > this.size) return;
 
-        if (index === 0) {
-            this.head = null;
+        if (index === 0 && this.head) {
+            this.head = this.head.next;
         } else {
             if (this.head) {
                 let prev = this.getElement(this.head, index - 1);
