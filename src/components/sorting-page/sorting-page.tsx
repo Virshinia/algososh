@@ -5,9 +5,9 @@ import {Button} from "../ui/button/button";
 import styles from "./sorting-page.module.css";
 import {Column} from "../ui/column/column";
 import {Direction} from "../../types/direction";
-import {swap} from "../../constants/utils";
 import {SHORT_DELAY_IN_MS} from "../../constants/delays";
 import {ElementStates} from "../../types/element-states";
+import {bubbleSorting, selectionSorting} from "./utils";
 
 interface IStatus {
   first?: number;
@@ -69,54 +69,27 @@ export const SortingPage: React.FC = () => {
     randomArr()
   }, [])
 
-  const handlerSorting = (direction: string) => {
-    if (sortType === 'bubble') {
-      bubbleSort(array, direction);
-    } else {
-      selectionSort(array, direction)
-    }
-  }
 
   const handlerRadioInputChange = (event: FormEvent<HTMLInputElement>) => {
     setSettings(event.currentTarget.value)
   }
 
-  const bubbleSort = (arr: number[], direction: string) => {
-    let count = 0
-    for (let i = 0; i < arr.length; i++) {
-      for ( let j = 0; j < arr.length - i - 1; j++) {
-        count++
-        setTimeout((i, j, count) => {
-          console.log(count)
-          setStatus({first: j, second: j+1, sorted: arr.length - i - 1, loader: arr.length - i - 1 > 1, isFullySorted: arr.length - i - 1 === 1 });
-          if (direction === Direction.Ascending ? arr[j] > arr[j+1] : arr[j] < arr[j+1]) {
-            swap(arr, j, j+1);
-            setValue([...arr])
-          }
-          }, SHORT_DELAY_IN_MS * count, i, j, count)
-      }
+  const showSortingSteps = (arr: number[], direction: string) => {
+    const sortingSteps = (sortType === 'bubble') ? bubbleSorting(arr, direction) : selectionSorting(arr, direction)
+    for (let i = 0; i < sortingSteps.length; i++) {
+      setTimeout(()=> {
+        setStatus({
+          first: sortingSteps[i].first,
+          second: sortingSteps[i].second,
+          sorted: sortingSteps[i].sorted,
+          loader: i < sortingSteps.length - 1,
+          isFullySorted: sortingSteps.length - i === 1,
+        })
+        setValue([...sortingSteps[i].currentArray]);
+      }, SHORT_DELAY_IN_MS * i)
     }
   }
 
-  const selectionSort = (arr: number[], direction: string) => {
-    let count = 0
-    for (let i = 0; i < arr.length - 1; i++) {
-      for ( let j = i + 1; j < arr.length; j++) {
-        count++
-        setTimeout((i, j, minInd) => {
-          setStatus({first: minInd, second: j, loader: minInd < arr.length - 2, sorted: minInd, isFullySorted: minInd === arr.length - 2});
-
-          if (direction === Direction.Ascending ? arr[j] < arr[minInd] : arr[j] > arr[minInd]) {
-            minInd = j
-            swap(arr, minInd, i);
-            setValue([...arr])
-          }
-
-        }, SHORT_DELAY_IN_MS * count, i, j, i, count)
-
-      }
-    }
-  };
 
   return (
     <SolutionLayout title="Сортировка массива">
@@ -142,14 +115,14 @@ export const SortingPage: React.FC = () => {
             text='По возрастанию'
             extraClass='ml-8 mr-6'
             disabled={status.loader}
-            onClick={()=> handlerSorting(Direction.Ascending)}
+            onClick={()=> showSortingSteps(array, Direction.Ascending)}
         />
         <Button
             sorting={Direction.Descending}
             text='По убыванию'
             extraClass='mr-20'
             disabled={status.loader}
-            onClick={()=> handlerSorting(Direction.Descending)}
+            onClick={()=> showSortingSteps(array, Direction.Descending)}
         />
         <Button
             text='Новый массив'
