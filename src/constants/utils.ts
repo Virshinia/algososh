@@ -4,4 +4,4 @@ export const swap = (arr: number[] | string [], firstIndex: number, secondIndex:
     arr[secondIndex] = temp;
 };
 
-export const TEST_LOCAL_URL = 'http://localhost:3000'
+export const MAIN_URL = 'http://localhost:3000'

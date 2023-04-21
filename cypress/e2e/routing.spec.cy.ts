@@ -1,4 +1,4 @@
-import {TEST_LOCAL_URL} from "../../src/constants/utils";
+import {MAIN_URL} from "../../src/constants/utils";
 
 function routing (text: string, url: string, title: string) {
   it (text, () => {
@@ -10,7 +10,7 @@ function routing (text: string, url: string, title: string) {
 describe('app is available', () => {
 
   before(() => {
-    cy.visit(TEST_LOCAL_URL);
+    cy.visit(MAIN_URL);
   });
 
   routing('should open string page', 'recursion', 'Строка');

@@ -71,6 +71,7 @@ export const StringComponent: React.FC = () => {
                 type="submit"
                 isLoader={status.loader}
                 disabled={values.string ==='' || status.loader}
+                data-cy="reverseButton"
             />
         </form>
         {array && <div className={styles.result}>{render(array, status.start, status.end)}</div>}
