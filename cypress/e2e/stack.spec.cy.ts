@@ -47,5 +47,4 @@ describe('app is available', () => {
     cy.get('[data-cy="removeFromStackButton"]').should('be.disabled');
   })
 
-
 })

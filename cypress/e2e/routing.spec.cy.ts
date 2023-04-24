@@ -19,7 +19,4 @@ describe('app is available', () => {
   routing('should open stack page', 'stack', 'Стек')
   routing('should open queue page', 'queue', 'Очередь')
   routing('should open linked-list page', 'list', 'Связный список')
-
-
-
 })
