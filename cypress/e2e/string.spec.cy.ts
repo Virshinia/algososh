@@ -1,5 +1,6 @@
 import {MAIN_URL} from "../../src/constants/utils";
 import {DELAY_IN_MS} from "../../src/constants/delays";
+import {initial, changing, modified} from "../../src/constants/utils";
 
 describe('app is available', () => {
   before(() => {
@@ -12,10 +13,6 @@ describe('app is available', () => {
   })
 
   it('string reverse works properly', () => {
-    const modified = '4px solid rgb(127, 224, 81)';
-    const changing = '4px solid rgb(210, 82, 225)';
-    const initial = '4px solid rgb(0, 50, 255)';
-
     cy.get('input').type('hello');
     cy.get('[data-cy="reverseButton"]').click();
     cy.get('[data-cy="reverseButton"]')

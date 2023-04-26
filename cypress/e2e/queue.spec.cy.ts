@@ -1,13 +1,11 @@
 import {MAIN_URL} from "../../src/constants/utils";
 import {SHORT_DELAY_IN_MS} from "../../src/constants/delays";
+import {initial, changing} from "../../src/constants/utils";
 
 describe('app is available', () => {
   before(() => {
     cy.visit(`${MAIN_URL}/queue`);
   });
-
-  const changing = '4px solid rgb(210, 82, 225)';
-  const initial = '4px solid rgb(0, 50, 255)';
 
   it('if input is empty, button is disabled', () => {
     cy.get('input').should('have.value', '');
@@ -45,7 +43,6 @@ describe('app is available', () => {
     cy.get('[data-testid^=circle]').eq(2).should('have.css', 'border', initial).should('contain', '3');
     cy.get('[data-testid^=circle]').eq(0).prev().contains('head');
     cy.get('[data-testid^=circle]').eq(2).next().next().contains('tail');
-
   })
 
   it('removing from queue works properly', () => {
@@ -71,5 +68,4 @@ describe('app is available', () => {
     cy.get('[data-cy="addToQueueButton"]').should('be.disabled');
     cy.get('[data-cy="removeFromQueueButton"]').should('be.disabled');
   })
-
 })

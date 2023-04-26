@@ -50,7 +50,7 @@ export const ListPage: React.FC = () => {
 
 
   const addToHead = () => {
-    setStatus({...status, addHead: true});
+    setStatus({...status, indexInProgress: 0, addHead: true});
     linkedList.insertAt(values.value, 0)
 
     const head = {
@@ -65,7 +65,7 @@ export const ListPage: React.FC = () => {
     };
 
     list.splice(0, 1);
-    setList([head, ...list]);
+    setList([head,...list]);
 
     setTimeout(() => {
       setList([...linkedList.print()])
@@ -245,7 +245,7 @@ export const ListPage: React.FC = () => {
     if (top && status.indexInProgress === index) {
       return top
     } else {
-      if(index === 0) {
+      if (index === 0) {
         return "head"
       } else {return ""}
     }
@@ -286,7 +286,7 @@ export const ListPage: React.FC = () => {
             isLoader={status.addHead}
             disabled={values.value === '' || Object.values(status).includes(true)}
             extraClass={`mr-6 ${styles.button}`}
-
+            data-cy="addToHead"
         />
         <Button
             text="Добавить в tail"
@@ -295,6 +295,7 @@ export const ListPage: React.FC = () => {
             isLoader={status.addTail}
             disabled={values.value === '' || Object.values(status).includes(true)}
             extraClass={`mr-6 ${styles.button}`}
+            data-cy="addToTail"
         />
         <Button
             text="Удалить из head"
@@ -303,6 +304,7 @@ export const ListPage: React.FC = () => {
             isLoader={status.removeHead}
             disabled={list.length < 1 || Object.values(status).includes(true)}
             extraClass={`mr-6 ${styles.button}`}
+            data-cy="deleteFromHead"
         />
         <Button
             text="Удалить из tail"
@@ -311,6 +313,7 @@ export const ListPage: React.FC = () => {
             isLoader={status.removeTail}
             disabled={list.length < 1 || Object.values(status).includes(true)}
             extraClass={styles.button}
+            data-cy="deleteFromTail"
         />
       </form>
 
@@ -332,7 +335,7 @@ export const ListPage: React.FC = () => {
             isLoader={status.addByIndex}
             disabled={values.value === '' || values.index === null || Object.values(status).includes(true)}
             extraClass={`mr-6 ${styles.button}`}
-
+            data-cy="addByIndex"
         />
         <Button
             text="Удалить по индексу"
@@ -341,6 +344,7 @@ export const ListPage: React.FC = () => {
             isLoader={status.removeByIndex}
             disabled={list.length - 1 < values.index || Object.values(status).includes(true)}
             extraClass={styles.button}
+            data-cy="removeByIndex"
         />
       </form>
       {list && <div className={styles.result}>{render(list)}</div>}
