@@ -1,4 +1,4 @@
-import {MAIN_URL, changing, initial, modified, circle} from "../../src/constants/utils";
+import {changing, initial, modified, circle} from "../../src/constants/utils";
 import {SHORT_DELAY_IN_MS} from "../../src/constants/delays";
 
 describe('testing linked-list page', () => {
@@ -9,7 +9,7 @@ describe('testing linked-list page', () => {
   const addByIndexButton = '[data-cy="addByIndex"]';
 
   before(() => {
-    cy.visit(`${MAIN_URL}/list`);
+    cy.visit('list');
   });
 
   it('if input is empty, button is disabled', () => {

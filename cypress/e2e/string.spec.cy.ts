@@ -1,4 +1,4 @@
-import {MAIN_URL, circle} from "../../src/constants/utils";
+import {circle} from "../../src/constants/utils";
 import {DELAY_IN_MS} from "../../src/constants/delays";
 import {initial, changing, modified} from "../../src/constants/utils";
 
@@ -6,7 +6,7 @@ describe('testing string page', () => {
   const button = '[data-cy="reverseButton"]';
 
   before(() => {
-    cy.visit(`${MAIN_URL}/recursion`);
+    cy.visit('recursion');
   });
 
   it('if input is empty, button is disabled', () => {

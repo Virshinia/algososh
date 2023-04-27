@@ -1,4 +1,3 @@
-import {MAIN_URL} from "../../src/constants/utils";
 import {SHORT_DELAY_IN_MS} from "../../src/constants/delays";
 import {circle} from "../../src/constants/utils";
 
@@ -6,7 +5,7 @@ describe('testing fibonacci page', () => {
   const button = '[data-cy="fibButton"]';
 
   before(() => {
-    cy.visit(`${MAIN_URL}/fibonacci`);
+    cy.visit('fibonacci');
   });
 
   it('if input is empty or value = 0, button is disabled', () => {

@@ -7,10 +7,9 @@ function routing (text: string, url: string, title: string) {
     cy.get('button').contains('К оглавлению').click()
   })
 }
-describe('routing test', () => {
-
+describe(`routing test from ${MAIN_URL}`, () => {
   before(() => {
-    cy.visit(MAIN_URL);
+    cy.visit('/');
   });
 
   routing('should open string page', 'recursion', 'Строка');

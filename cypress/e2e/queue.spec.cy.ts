@@ -1,4 +1,4 @@
-import {MAIN_URL, circle} from "../../src/constants/utils";
+import {circle} from "../../src/constants/utils";
 import {SHORT_DELAY_IN_MS} from "../../src/constants/delays";
 import {initial, changing} from "../../src/constants/utils";
 
@@ -7,7 +7,7 @@ describe('testing queue page', () => {
   const removeFromQueueButton = '[data-cy="removeFromQueueButton"]';
 
   before(() => {
-    cy.visit(`${MAIN_URL}/queue`);
+    cy.visit('queue');
   });
 
   it('if input is empty, button is disabled', () => {

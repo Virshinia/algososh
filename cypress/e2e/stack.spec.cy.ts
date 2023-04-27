@@ -1,4 +1,4 @@
-import {MAIN_URL, changing, initial, circle} from "../../src/constants/utils";
+import {changing, initial, circle} from "../../src/constants/utils";
 import {SHORT_DELAY_IN_MS} from "../../src/constants/delays";
 
 describe('testing stack page', () => {
@@ -6,7 +6,7 @@ describe('testing stack page', () => {
   const removeFromStackButton = '[data-cy="removeFromStackButton"]';
 
   before(() => {
-    cy.visit(`${MAIN_URL}/stack`);
+    cy.visit('stack');
   });
 
   it('if input is empty, button is disabled', () => {
