@@ -13,9 +13,11 @@ Object {
         />
         <div
           class="circle   default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           />
         </div>
         <p
@@ -36,9 +38,11 @@ Object {
       />
       <div
         class="circle   default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         />
       </div>
       <p
@@ -122,9 +126,11 @@ Object {
             />
             <div
               class="circle   default"
+              data-testid="circle"
             >
               <p
                 class="text text_type_circle text_color_input letter"
+                data-testid="letter"
               />
             </div>
             <p
@@ -137,9 +143,11 @@ Object {
         </div>
         <div
           class="circle   default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           />
         </div>
         <p
@@ -166,9 +174,11 @@ Object {
           />
           <div
             class="circle   default"
+            data-testid="circle"
           >
             <p
               class="text text_type_circle text_color_input letter"
+              data-testid="letter"
             />
           </div>
           <p
@@ -181,9 +191,11 @@ Object {
       </div>
       <div
         class="circle   default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         />
       </div>
       <p
@@ -261,9 +273,11 @@ Object {
         />
         <div
           class="circle   default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           />
         </div>
         <p
@@ -280,9 +294,11 @@ Object {
             />
             <div
               class="circle   default"
+              data-testid="circle"
             >
               <p
                 class="text text_type_circle text_color_input letter"
+                data-testid="letter"
               />
             </div>
             <p
@@ -305,9 +321,11 @@ Object {
       />
       <div
         class="circle   default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         />
       </div>
       <p
@@ -324,9 +342,11 @@ Object {
           />
           <div
             class="circle   default"
+            data-testid="circle"
           >
             <p
               class="text text_type_circle text_color_input letter"
+              data-testid="letter"
             />
           </div>
           <p
@@ -406,9 +426,11 @@ Object {
         />
         <div
           class="circle   default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           />
         </div>
         <p
@@ -431,9 +453,11 @@ Object {
       />
       <div
         class="circle   default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         />
       </div>
       <p
@@ -513,9 +537,11 @@ Object {
         />
         <div
           class="circle   default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           >
             123
           </p>
@@ -538,9 +564,11 @@ Object {
       />
       <div
         class="circle   default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         >
           123
         </p>
@@ -620,9 +648,11 @@ Object {
         />
         <div
           class="circle  small default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           />
         </div>
         <p
@@ -643,9 +673,11 @@ Object {
       />
       <div
         class="circle  small default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         />
       </div>
       <p
@@ -725,9 +757,11 @@ Object {
         </div>
         <div
           class="circle   default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           />
         </div>
         <p
@@ -750,9 +784,11 @@ Object {
       </div>
       <div
         class="circle   default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         />
       </div>
       <p
@@ -830,9 +866,11 @@ Object {
         />
         <div
           class="circle   default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           />
         </div>
         <p
@@ -853,9 +891,11 @@ Object {
       />
       <div
         class="circle   default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         />
       </div>
       <p
@@ -933,9 +973,11 @@ Object {
         />
         <div
           class="circle   default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           />
         </div>
         <p
@@ -956,9 +998,11 @@ Object {
       />
       <div
         class="circle   default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         />
       </div>
       <p
@@ -1036,9 +1080,11 @@ Object {
         />
         <div
           class="circle   default"
+          data-testid="circle"
         >
           <p
             class="text text_type_circle text_color_input letter"
+            data-testid="letter"
           />
         </div>
         <p
@@ -1059,9 +1105,11 @@ Object {
       />
       <div
         class="circle   default"
+        data-testid="circle"
       >
         <p
           class="text text_type_circle text_color_input letter"
+          data-testid="letter"
         />
       </div>
       <p

@@ -7,7 +7,7 @@ function routing (text: string, url: string, title: string) {
     cy.get('button').contains('К оглавлению').click()
   })
 }
-describe('app is available', () => {
+describe('routing test', () => {
 
   before(() => {
     cy.visit(MAIN_URL);
