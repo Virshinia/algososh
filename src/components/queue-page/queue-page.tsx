@@ -83,7 +83,7 @@ export const QueuePage: React.FC = () => {
               isLoader={loader.enqueue}
               disabled={values.value === '' || queue.tail === queue.size || loader.dequeue || loader.enqueue}
               extraClass='mr-6'
-
+              data-cy="addToQueueButton"
           />
           <Button
               text="Удалить"
@@ -92,6 +92,7 @@ export const QueuePage: React.FC = () => {
               isLoader={loader.dequeue}
               disabled={queue.length === 0 || loader.dequeue || loader.enqueue}
               extraClass='mr-20'
+              data-cy="removeFromQueueButton"
           />
             <Button
                 text="Очистить"
@@ -99,6 +100,7 @@ export const QueuePage: React.FC = () => {
                 onClick={clearQueue}
                 disabled={queue.length === 0 || loader.dequeue || loader.enqueue}
                 extraClass='ml-20'
+                data-cy="clearQueueButton"
             />
         </form>
 

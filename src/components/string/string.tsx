@@ -9,11 +9,16 @@ import { swap } from "../../constants/utils";
 import { ElementStates } from "../../types/element-states";
 import { DELAY_IN_MS } from "../../constants/delays";
 
+interface IStatus {
+    start: number,
+    end: number,
+    loader: boolean
+}
 
 export const StringComponent: React.FC = () => {
     const {values, handleChange} = useForm({string: ''})
     const [array, setValue] = useState<string[] | null>(null);
-    const [status, setStatus] = useState({start: 0 ,end: -1, loader: false})
+    const [status, setStatus] = useState<IStatus>({start: 0 ,end: -1, loader: false})
 
     const submitString = useCallback((e: React.FormEvent): void => {
         e.preventDefault();
@@ -66,6 +71,7 @@ export const StringComponent: React.FC = () => {
                 type="submit"
                 isLoader={status.loader}
                 disabled={values.string ==='' || status.loader}
+                data-cy="reverseButton"
             />
         </form>
         {array && <div className={styles.result}>{render(array, status.start, status.end)}</div>}

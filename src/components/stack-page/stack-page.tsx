@@ -11,7 +11,7 @@ import {Stack} from "./class-stack";
 
 export const StackPage: React.FC = () => {
 
-  const {values, handleChange} = useForm({value: ''})
+  const {values, handleChange, setValues} = useForm({value: ''})
   const [loader, setLoader] = useState({push: false, pop: false});
   const [array, setStack] = useState<Array<string | number>>([])
 
@@ -23,6 +23,7 @@ export const StackPage: React.FC = () => {
     e.preventDefault();
     setLoader({...loader, push: true});
     stack.push(values.value);
+    setValues({value: ''})
     setStack([...stack.getStack()]);
     setTimeout(()=>{
       setLoader({...loader, push: false});
@@ -35,8 +36,8 @@ export const StackPage: React.FC = () => {
     e.preventDefault();
     setLoader({...loader, pop: true});
     stack.pop();
-    setStack([...stack.getStack()]);
     setTimeout(()=>{
+      setStack([...stack.getStack()]);
       setLoader({...loader, push: false});
     }, SHORT_DELAY_IN_MS)
 
@@ -75,7 +76,7 @@ export const StackPage: React.FC = () => {
             isLoader={loader.push}
             disabled={values.value === '' || loader.push || loader.pop}
             extraClass='mr-6'
-
+            data-cy="addToStackButton"
         />
         <Button
             text="Удалить"
@@ -84,6 +85,7 @@ export const StackPage: React.FC = () => {
             isLoader={loader.pop}
             disabled={array.length < 1 || loader.push || loader.pop}
             extraClass='mr-20'
+            data-cy="removeFromStackButton"
         />
         <Button
             text="Очистить"

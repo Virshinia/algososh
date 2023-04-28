@@ -64,6 +64,7 @@ export const FibonacciPage: React.FC = () => {
             type="submit"
             isLoader={loader}
             disabled={loader || Boolean(values.index < 1 || values.index > 19)}
+            data-cy="fibButton"
         />
       </form>
       {result && <div className={styles.result}>{render(result)}</div>}
